@@ -1,0 +1,57 @@
+{
+  "name": "uxonfly-mcp",
+  "version": "0.1.0",
+  "description": "Designer intelligence for every AI coding session. Production-grade UX. On the fly.",
+  "type": "module",
+  "bin": {
+    "uxonfly-mcp": "build/index.js"
+  },
+  "files": [
+    "build",
+    "uxonfly.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "dev": "tsx src/index.ts",
+    "start": "node build/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "design-system",
+    "ux",
+    "ai",
+    "cursor",
+    "claude-code",
+    "windsurf",
+    "vibe-coding"
+  ],
+  "author": {
+    "name": "phanikondru",
+    "url": "https://x.com/Phanikondru"
+  },
+  "license": "MIT",
+  "homepage": "https://uxonfly.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Phanikondru/uxonfly-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Phanikondru/uxonfly-mcp/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

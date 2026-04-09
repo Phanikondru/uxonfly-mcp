@@ -1,0 +1,185 @@
+# UXonFly
+
+> An open-source design system for AI coding sessions.
+> Strong opinions. MIT licensed.
+
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+---
+
+## What this is
+
+Every AI coding session starts blind. Generic shadcn components. Default
+Tailwind colors. Modal-inside-a-modal. Empty states with no CTA. Errors in
+toasts that should be inline. Destructive actions with single-click delete.
+
+UXonFly is a curated set of design and UX rules — tokens, components, UX
+patterns, flows, copy rules, and principles — that your AI reads before
+generating UI. The rules live in one markdown file: `uxonfly.md`.
+
+**Two ways to use it. Same content, same rules:**
+
+1. **As a file** — copy `uxonfly.md` into your project. Your AI reads it natively every session. Zero install.
+2. **As an MCP server** — run `uxonfly-mcp` and your AI invokes 7 tools (`get_component`, `get_ux_pattern`, …) on demand.
+
+The file install is the recommended starting point. The MCP server is the
+upgrade for power users who want tool-call precision.
+
+MIT licensed. Fork it. Improve it. Send a PR.
+
+## What's in it
+
+- **5 token categories** — colors, typography, spacing, shape, shadows
+- **6 components** — button, input, card, badge, modal, toast
+- **9 UX patterns** — navigation, modals, forms, loading, empty states, errors, destructive actions, data tables, notifications
+- **3 flows** — empty-state, onboarding, auth
+- **Copy rules** — voice, tense, errors, CTAs, tooltips, placeholders, labels
+- **7 principles** — accessibility first, one primary action, error prevention, progressive disclosure, copy-driven, keyboard navigable, trust the system
+
+Strong opinions. Border-first. Modern SaaS aesthetic (Linear / Stripe / Vercel-aligned).
+
+---
+
+## Install option 1 — file (recommended, 30 seconds)
+
+This is the only step you need.
+
+```bash
+# Download the rulebook
+curl -O https://raw.githubusercontent.com/Phanikondru/uxonfly-mcp/main/uxonfly.md
+
+# For Claude Code:
+mv uxonfly.md CLAUDE.md
+
+# OR for Cursor:
+mv uxonfly.md .cursorrules
+```
+
+Open your AI tool and start prompting. It will read the file before generating
+UI on every session.
+
+That's it. No npm install. No config. No login.
+
+---
+
+## Install option 2 — MCP server (power users)
+
+If you want your AI to invoke specific tools (`get_component`,
+`get_ux_pattern`, `get_tokens`, …) on demand instead of reading the whole
+file every prompt, run UXonFly as a local MCP server.
+
+Published to npm as [`uxonfly-mcp`](https://www.npmjs.com/package/uxonfly-mcp).
+
+### Claude Code
+
+```bash
+claude mcp add uxonfly -- npx -y uxonfly-mcp
+```
+
+### Cursor
+
+Add to `~/.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "uxonfly": {
+      "command": "npx",
+      "args": ["-y", "uxonfly-mcp"]
+    }
+  }
+}
+```
+
+### Install from source (contributors)
+
+If you want to run the MCP server from a local clone — for example, to
+modify the base `uxonfly.md` or the server code — build from source and
+point your AI tool at the compiled binary:
+
+```bash
+git clone https://github.com/Phanikondru/uxonfly-mcp.git
+cd uxonfly-mcp
+npm install
+npm run build
+```
+
+Then in your MCP config, replace `npx -y uxonfly-mcp` with
+`node /absolute/path/to/uxonfly-mcp/build/index.js`.
+
+### Available tools
+
+| Tool | When AI calls it | Returns |
+| --- | --- | --- |
+| `get_design_system` | Before any UI task | Full system |
+| `get_component` | Before generating a component | Component spec |
+| `get_tokens` | Before writing CSS / Tailwind | Tokens |
+| `get_ux_pattern` | Before any UX decision | Pattern |
+| `get_flow` | Before any multi-step flow | Flow spec |
+| `get_copy_rules` | Before writing interface copy | Copy rules |
+| `get_rules` | Before layout / IA decisions | Principles |
+
+Each tool description begins with `ALWAYS call…` so your AI invokes them
+proactively before generating UI code (the trick: the tool description
+itself is the instruction).
+
+### Custom rulebook
+
+Point the MCP server at your own version of `uxonfly.md` via the
+`UXONFLY_MD_PATH` environment variable:
+
+```bash
+UXONFLY_MD_PATH=/absolute/path/to/your/uxonfly.md npx -y uxonfly-mcp
+```
+
+---
+
+## Local development
+
+```bash
+git clone https://github.com/Phanikondru/uxonfly-mcp.git
+cd uxonfly-mcp
+npm install
+npm run dev    # run with tsx
+npm run build  # compile to ./build
+npm start      # run the compiled server
+```
+
+---
+
+## Contributing
+
+The whole point of this project: one designer's opinions become a shared
+standard the community keeps improving. PRs welcome.
+
+How to help:
+
+- Open an issue if you think a rule is wrong, missing, or unclear
+- Send a PR for new components, patterns, or principles you've battle-tested
+- Add real-world usage examples (apps you've built with `uxonfly.md`)
+
+Goal: make UXonFly *better* than any one designer's taste alone.
+
+---
+
+## About
+
+Built by **Phanindhra Kondru** — designer with 4 years of production UX
+experience, building in public.
+
+Just trying to build good things. **Design + AI + Code.**
+
+UXonFly was built with Gemini, Cursor, and the rules in `uxonfly.md`
+itself — the same system that ships with this package. The tool eats its
+own dog food.
+
+### Connect
+
+- X: [@Phanikondru](https://x.com/Phanikondru)
+- LinkedIn: [Phanindhra Kondru](https://www.linkedin.com/in/phanindhra-kondru-436220205/)
+
+---
+
+## License
+
+MIT. Use it commercially. Fork it. Modify it. Just keep the LICENSE file.
