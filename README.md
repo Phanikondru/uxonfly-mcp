@@ -42,13 +42,38 @@ Strong opinions. Border-first. Modern SaaS aesthetic (Linear / Stripe / Vercel-a
 
 ## Install option 1 — file (recommended, 30 seconds)
 
-Download `uxonfly.md` once, then save it with whatever filename your AI tool reads on every session.
+Run **one command** from your project root. Pick the line for your AI tool — it downloads the rules and saves them with the exact filename your tool auto-loads on every session.
+
+> **Important:** the filename matters. If the file is saved as `uxonfly.md`, your AI will **not** auto-read it. Each command below saves it with the right name in one shot so you can't miss the rename step.
 
 ```bash
-curl -O https://raw.githubusercontent.com/Phanikondru/uxonfly-mcp/main/uxonfly.md
+# Claude Code
+curl -o CLAUDE.md https://raw.githubusercontent.com/Phanikondru/uxonfly-mcp/main/uxonfly.md
+
+# Cursor
+curl -o .cursorrules https://raw.githubusercontent.com/Phanikondru/uxonfly-mcp/main/uxonfly.md
+
+# Windsurf
+curl -o .windsurfrules https://raw.githubusercontent.com/Phanikondru/uxonfly-mcp/main/uxonfly.md
+
+# Gemini CLI
+curl -o GEMINI.md https://raw.githubusercontent.com/Phanikondru/uxonfly-mcp/main/uxonfly.md
+
+# Zed / Google Antigravity / any tool using the AGENTS.md convention
+curl -o AGENTS.md https://raw.githubusercontent.com/Phanikondru/uxonfly-mcp/main/uxonfly.md
+
+# GitHub Copilot
+mkdir -p .github && curl -o .github/copilot-instructions.md https://raw.githubusercontent.com/Phanikondru/uxonfly-mcp/main/uxonfly.md
+
+# JetBrains Junie
+mkdir -p .junie && curl -o .junie/guidelines.md https://raw.githubusercontent.com/Phanikondru/uxonfly-mcp/main/uxonfly.md
+
+# Aider
+curl -o CONVENTIONS.md https://raw.githubusercontent.com/Phanikondru/uxonfly-mcp/main/uxonfly.md
+# then run: aider --read CONVENTIONS.md
 ```
 
-Then rename it per your tool:
+Filename reference if your tool isn't listed:
 
 | AI tool | Save as | Location |
 | --- | --- | --- |
@@ -63,34 +88,17 @@ Then rename it per your tool:
 | **JetBrains Junie** | `guidelines.md` | `.junie/` |
 | **Any other tool** | `AGENTS.md` | project root (emerging universal convention) |
 
-Example commands:
-
-```bash
-# Claude Code
-mv uxonfly.md CLAUDE.md
-
-# Cursor
-mv uxonfly.md .cursorrules
-
-# Windsurf
-mv uxonfly.md .windsurfrules
-
-# Gemini CLI
-mv uxonfly.md GEMINI.md
-
-# Zed / Google Antigravity / any tool using the AGENTS.md convention
-mv uxonfly.md AGENTS.md
-
-# GitHub Copilot
-mkdir -p .github && mv uxonfly.md .github/copilot-instructions.md
-
-# JetBrains Junie
-mkdir -p .junie && mv uxonfly.md .junie/guidelines.md
-```
-
-Open your AI tool in that project and start prompting. It reads the file on every session automatically.
-
 **That's it. No npm install, no config, no login.** Works with any AI tool that reads project-level context files — which is most of them in 2026.
+
+### Verify it's actually loaded (do this once)
+
+The file install has one silent failure mode: if the filename is wrong, your AI won't read it — and you won't know until you get generic UI back. Confirm in 10 seconds by asking your AI:
+
+> *"What design system rules are you following in this project? List the token categories and components by name."*
+
+If it mentions UXonFly, the token categories (colors, typography, spacing, shape, shadows), or components like `button` / `input` / `card` — it's loaded. If it says "I don't see any design system" or invents generic answers, the file isn't being read. Check the filename and location against the table above.
+
+If you want a zero-ambiguity install where the AI is *forced* to load rules before generating UI, use the MCP server below instead.
 
 ---
 

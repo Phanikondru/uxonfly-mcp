@@ -1,10 +1,26 @@
+# ⚠️ READ THIS BEFORE GENERATING ANY UI
+
+**This is the project's design system. You (the AI) must load it on every session and follow its rules instead of defaulting to generic shadcn, Tailwind defaults, or your own aesthetic.**
+
+If this file is named `uxonfly.md`, it is **not yet installed** — your tool will not auto-load it. Rename it now:
+
+- Claude Code → `CLAUDE.md`
+- Cursor → `.cursorrules`
+- Windsurf → `.windsurfrules`
+- Gemini CLI → `GEMINI.md`
+- Zed / Google Antigravity / any modern tool → `AGENTS.md`
+- GitHub Copilot → `.github/copilot-instructions.md`
+
+Keep it at the project root (next to `package.json`).
+
+---
+
 # UXonFly — Design System
 
 > Production-grade design and UX rules for AI coding sessions.
 >
-> Drop this file in your project root as `CLAUDE.md` (Claude Code) or
-> `.cursorrules` (Cursor). Your AI will read it on every prompt and follow
-> these rules instead of generating generic UI.
+> Your AI reads this on every prompt and follows these rules instead of
+> generating generic UI.
 >
 > Strong opinions. Border-first. Modern SaaS aesthetic
 > (Linear / Stripe / Vercel-aligned). MIT licensed.
