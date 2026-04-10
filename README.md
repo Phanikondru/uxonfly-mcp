@@ -42,23 +42,55 @@ Strong opinions. Border-first. Modern SaaS aesthetic (Linear / Stripe / Vercel-a
 
 ## Install option 1 — file (recommended, 30 seconds)
 
-This is the only step you need.
+Download `uxonfly.md` once, then save it with whatever filename your AI tool reads on every session.
 
 ```bash
-# Download the rulebook
 curl -O https://raw.githubusercontent.com/Phanikondru/uxonfly-mcp/main/uxonfly.md
-
-# For Claude Code:
-mv uxonfly.md CLAUDE.md
-
-# OR for Cursor:
-mv uxonfly.md .cursorrules
 ```
 
-Open your AI tool and start prompting. It will read the file before generating
-UI on every session.
+Then rename it per your tool:
 
-That's it. No npm install. No config. No login.
+| AI tool | Save as | Location |
+| --- | --- | --- |
+| **Claude Code** | `CLAUDE.md` | project root |
+| **Cursor** | `.cursorrules` | project root |
+| **Windsurf** | `.windsurfrules` | project root |
+| **Gemini CLI** | `GEMINI.md` | project root |
+| **Zed** | `AGENTS.md` | project root |
+| **Google Antigravity** | `AGENTS.md` | project root |
+| **GitHub Copilot** | `copilot-instructions.md` | `.github/` |
+| **Aider** | `CONVENTIONS.md` (then `aider --read CONVENTIONS.md`) | project root |
+| **JetBrains Junie** | `guidelines.md` | `.junie/` |
+| **Any other tool** | `AGENTS.md` | project root (emerging universal convention) |
+
+Example commands:
+
+```bash
+# Claude Code
+mv uxonfly.md CLAUDE.md
+
+# Cursor
+mv uxonfly.md .cursorrules
+
+# Windsurf
+mv uxonfly.md .windsurfrules
+
+# Gemini CLI
+mv uxonfly.md GEMINI.md
+
+# Zed / Google Antigravity / any tool using the AGENTS.md convention
+mv uxonfly.md AGENTS.md
+
+# GitHub Copilot
+mkdir -p .github && mv uxonfly.md .github/copilot-instructions.md
+
+# JetBrains Junie
+mkdir -p .junie && mv uxonfly.md .junie/guidelines.md
+```
+
+Open your AI tool in that project and start prompting. It reads the file on every session automatically.
+
+**That's it. No npm install, no config, no login.** Works with any AI tool that reads project-level context files — which is most of them in 2026.
 
 ---
 
@@ -69,6 +101,9 @@ If you want your AI to invoke specific tools (`get_component`,
 file every prompt, run UXonFly as a local MCP server.
 
 Published to npm as [`uxonfly-mcp`](https://www.npmjs.com/package/uxonfly-mcp).
+MCP is a standard protocol — any MCP-compatible AI tool can load this server
+with the same command: `npx -y uxonfly-mcp`. Only the config location varies
+per tool. Snippets for the most common tools below.
 
 ### Claude Code
 
@@ -90,6 +125,88 @@ Add to `~/.cursor/mcp.json`:
   }
 }
 ```
+
+### Claude Desktop
+
+On macOS, edit `~/Library/Application Support/Claude/claude_desktop_config.json`.
+On Windows, edit `%APPDATA%\Claude\claude_desktop_config.json`.
+
+```json
+{
+  "mcpServers": {
+    "uxonfly": {
+      "command": "npx",
+      "args": ["-y", "uxonfly-mcp"]
+    }
+  }
+}
+```
+
+### Windsurf
+
+Add to `~/.codeium/windsurf/mcp_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "uxonfly": {
+      "command": "npx",
+      "args": ["-y", "uxonfly-mcp"]
+    }
+  }
+}
+```
+
+### VS Code (with MCP support)
+
+Add to `.vscode/mcp.json` in your project root:
+
+```json
+{
+  "servers": {
+    "uxonfly": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "uxonfly-mcp"]
+    }
+  }
+}
+```
+
+### Zed
+
+Add to `~/.config/zed/settings.json` under `context_servers`:
+
+```json
+{
+  "context_servers": {
+    "uxonfly": {
+      "command": {
+        "path": "npx",
+        "args": ["-y", "uxonfly-mcp"]
+      }
+    }
+  }
+}
+```
+
+### Any other MCP-compatible tool
+
+MCP is a standard protocol. The command is always the same across tools:
+
+```bash
+npx -y uxonfly-mcp
+```
+
+Gemini CLI, Google Antigravity, JetBrains Junie, and a growing list of other
+editors and agents support MCP. Consult your tool's documentation for where
+to register MCP servers, then use the command above.
+
+### Tools without MCP support
+
+For tools that don't speak MCP yet (Aider, basic terminal LLM CLIs, older
+editors), use **Install option 1** above. The file install works with any AI
+that reads project context files.
 
 ### Install from source (contributors)
 
