@@ -26,6 +26,17 @@ const DEFAULT_MD_PATH = resolve(
   "uxonfly.md",
 );
 
+// Read package version at runtime so serverInfo.version always matches
+// package.json. Prevents drift on future version bumps.
+const PACKAGE_JSON_PATH = resolve(
+  dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "package.json",
+);
+const { version: PACKAGE_VERSION } = JSON.parse(
+  readFileSync(PACKAGE_JSON_PATH, "utf8"),
+) as { version: string };
+
 function loadSystem(): string {
   const path = process.env.UXONFLY_MD_PATH ?? DEFAULT_MD_PATH;
   try {
@@ -81,7 +92,7 @@ const notFound = (what: string) =>
 
 const server = new McpServer({
   name: "uxonfly-mcp",
-  version: "0.1.0",
+  version: PACKAGE_VERSION,
 });
 
 // Tool 1 — complete design system
