@@ -1,6 +1,6 @@
 {
   "name": "uxonfly-mcp",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Designer intelligence for every AI coding session. Production-grade UX. On the fly.",
   "type": "module",
   "bin": {
